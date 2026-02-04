@@ -15,8 +15,3 @@ spring:
   cache:
     redis:
       time-to-live: 60000
-
-
-basket:
-  client:
-    platzi: https://api.escuelajs.co/api/v1/
