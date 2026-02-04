@@ -1,4 +1,4 @@
-package java.dev.devdreamer.ecommerce.basketservice;
+package dev.devdreamer.ecommerce.basketservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
