@@ -1,6 +1,5 @@
-package dev.devdreamer.ecommerce.basketservice.configuration.redis;
+package dev.devdreamer.ecommerce.basketservice.configuration;
 
-import dev.devdreamer.ecommerce.basketservice.domain.Basket;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;

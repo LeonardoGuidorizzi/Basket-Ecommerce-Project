@@ -3,7 +3,7 @@ package dev.devdreamer.ecommerce.basketservice.client.response;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public record PlatzProductResponse (
+public record PlatziProductResponse(
         Long id,
         String title,
         String slug,
