@@ -4,11 +4,10 @@ import dev.devdreamer.ecommerce.basketservice.client.response.PlatziProductRespo
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.List;
 
 @FeignClient(name = "PlatzStoreClient", url = "${basket.client.platzi}")
-public interface PlatzStoreClient {
+public interface PlatziStoreClient {
     @GetMapping("/products")
     public List<PlatziProductResponse> getAllProducts();
     @GetMapping("/products/{id}")
