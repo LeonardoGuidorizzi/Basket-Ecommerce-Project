@@ -1,4 +1,4 @@
 package dev.devdreamer.ecommerce.basketservice.mapper;
 
-public class OrderService {
+public class OrderMapper {
 }
