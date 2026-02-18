@@ -18,4 +18,5 @@ spring:
 basket:
   client:
     platzi: https://api.escuelajs.co/api/v1/
-
+  security:
+    secret: "lckansdlkcnasldknclaksndlcknasdlkncasd"

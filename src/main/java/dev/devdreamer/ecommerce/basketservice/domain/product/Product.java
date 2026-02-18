@@ -1,4 +1,4 @@
-package dev.devdreamer.ecommerce.basketservice.domain;
+package dev.devdreamer.ecommerce.basketservice.domain.product;
 
 import org.springframework.data.annotation.Id;
 

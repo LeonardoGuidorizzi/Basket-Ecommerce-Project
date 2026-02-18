@@ -1,6 +1,10 @@
-package dev.devdreamer.ecommerce.basketservice.domain;
+package dev.devdreamer.ecommerce.basketservice.domain.basket;
+
+import java.math.BigDecimal;
 
 public class BasketItem {
-    private String productId;
+    private Long productId;
+    private String productName;
+    private BigDecimal unitPrice;
     private Integer quantity;
 }

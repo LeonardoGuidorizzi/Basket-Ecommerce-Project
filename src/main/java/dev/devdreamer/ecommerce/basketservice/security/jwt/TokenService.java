@@ -1,10 +1,15 @@
-package dev.devdreamer.ecommerce.basketservice.security.filter;
+package dev.devdreamer.ecommerce.basketservice.security.jwt;
 
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import dev.devdreamer.ecommerce.basketservice.domain.user.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 @Service
 public class TokenService {
