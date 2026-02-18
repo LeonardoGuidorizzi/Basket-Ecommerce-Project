@@ -1,4 +1,4 @@
 package dev.devdreamer.ecommerce.basketservice.domain;
 
-public class Order {
+public class OrderItem {
 }
