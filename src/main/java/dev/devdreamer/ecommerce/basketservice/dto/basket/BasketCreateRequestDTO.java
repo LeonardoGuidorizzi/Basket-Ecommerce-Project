@@ -1,4 +1,4 @@
 package dev.devdreamer.ecommerce.basketservice.dto.basket;
 
-public class BasketCreateRequestDTO {
+public record BasketCreateRequestDTO () {
 }
