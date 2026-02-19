@@ -1,8 +1,9 @@
 package dev.devdreamer.ecommerce.basketservice.domain.order;
 
+import dev.devdreamer.ecommerce.basketservice.Enum.BasketStatus;
 import dev.devdreamer.ecommerce.basketservice.Enum.OrderStatus;
-import dev.devdreamer.ecommerce.basketservice.domain.Enum.BasketStatus;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
@@ -13,7 +14,9 @@ import java.util.List;
 public class Order {
     @Id
     private String id;
-    private String cartId; // Referência à cesta que originou o pedido
+    @Indexed
+    private String userId;
+    private String basketId;
     private List<OrderStatus> orderItems;
     private BigDecimal totalAmount;
     private LocalDateTime orderDate;
