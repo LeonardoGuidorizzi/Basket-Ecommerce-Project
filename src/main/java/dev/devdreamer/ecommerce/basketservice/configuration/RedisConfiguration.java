@@ -14,7 +14,7 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 public class RedisConfiguration {
 
     @Bean
-    @ConfigurationProperties(value = "spring.redis")
+    @ConfigurationProperties(value = "spring.data.redis")
     public RedisProperties redisProperties() {
         return new RedisProperties();
     }
