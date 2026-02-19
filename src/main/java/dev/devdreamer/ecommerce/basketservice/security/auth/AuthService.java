@@ -1,9 +1,13 @@
 package dev.devdreamer.ecommerce.basketservice.security.auth;
 
 import dev.devdreamer.ecommerce.basketservice.domain.user.User;
+import dev.devdreamer.ecommerce.basketservice.dto.auth.LoginRequestDTO;
+import dev.devdreamer.ecommerce.basketservice.dto.auth.LoginResponseDTO;
+import dev.devdreamer.ecommerce.basketservice.dto.auth.RegisterRequestDTO;
 import dev.devdreamer.ecommerce.basketservice.repository.UserRepository;
 import dev.devdreamer.ecommerce.basketservice.security.jwt.TokenService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,30 +19,29 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
 
-    public String register(String email, String password) {
+    public String register(RegisterRequestDTO request) {
 
-        if (userRepository.findByEmail(email).isPresent()) {
+        if (userRepository.findByEmail(request.email()).isPresent()) {
             throw new RuntimeException("Email already in use");
         }
 
-        String encodedPassword = passwordEncoder.encode(password);
+        String encodedPassword = passwordEncoder.encode(request.password());
 
-        User user = User.create(email, encodedPassword);
+        User user = User.create( request.email(), encodedPassword);
 
         userRepository.save(user);
 
         return tokenService.generateToken(user);
     }
 
-    public String login(String email, String password) {
+    public LoginResponseDTO login(LoginRequestDTO request) {
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
-
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new RuntimeException("Invalid credentials");
-        }
-
-        return tokenService.generateToken(user);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                request.email(),
+                request.password()
+        );
+        User user = (User) authenticationToken.getPrincipal();
+        String token = tokenService.generateToken(user);
+        return new LoginResponseDTO(token);
     }
 }
