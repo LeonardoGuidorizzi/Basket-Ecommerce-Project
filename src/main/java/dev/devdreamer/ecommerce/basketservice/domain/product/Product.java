@@ -1,17 +1,18 @@
 package dev.devdreamer.ecommerce.basketservice.domain.product;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.experimental.UtilityClass;
-import org.springframework.data.annotation.Id;
+import lombok.*;
 
+import org.springframework.data.annotation.Id;
 import java.math.BigDecimal;
-@UtilityClass
+@Data
 @Builder
-@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product {
     @Id
     private Long id;
     private String name;
-    private BigDecimal unitPrice;
+    private String slug;
+    private BigDecimal price;
+    private String description;
 }
