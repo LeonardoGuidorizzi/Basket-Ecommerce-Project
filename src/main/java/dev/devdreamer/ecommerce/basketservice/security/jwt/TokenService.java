@@ -14,7 +14,7 @@ import java.time.temporal.ChronoUnit;
 @Service
 public class TokenService {
 
-    @Value("${security.jwt.secret}")
+    @Value("${basket.security.secret}")
     private String secret;
 
     public String generateToken(User user) {
