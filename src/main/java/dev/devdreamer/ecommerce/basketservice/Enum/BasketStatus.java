@@ -1,8 +1,7 @@
-package dev.devdreamer.ecommerce.basketservice.domain.Enum;
+package dev.devdreamer.ecommerce.basketservice.Enum;
 
 public enum BasketStatus {
     OPEN,
-    CHECKOUT,
-    COMPLETED,
+    CHECKED_OUT,
     CANCELED
 }
