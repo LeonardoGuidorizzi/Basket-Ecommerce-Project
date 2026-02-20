@@ -32,8 +32,8 @@ public class SecurityConfiguration {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/v1/basketservice/auth/register",
-                                "/v1/basketservice/auth/login"
+                                "/api/v1/basketservice/auth/register",
+                                "/api/v1/basketservice/auth/login"
                         )
                         .permitAll()
                         .anyRequest().authenticated())

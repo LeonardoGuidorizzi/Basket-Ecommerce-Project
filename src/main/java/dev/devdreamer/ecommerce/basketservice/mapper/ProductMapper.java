@@ -8,9 +8,7 @@ public class ProductMapper {
         return Product.builder()
                 .id(response.id())
                 .name(response.title())
-                .slug(response.slug())
-                .price(response.price())
-                .description(response.description())
+                .unitPrice(response.price())
                 .build();
 
 //        if (response == null) {

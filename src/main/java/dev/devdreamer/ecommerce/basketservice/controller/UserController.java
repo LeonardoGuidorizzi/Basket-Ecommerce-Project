@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("v1/basketservice/auth")
+@RequestMapping("api/v1/basketservice/auth")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;

@@ -8,5 +8,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.Optional;
 
 public interface BasketRepository extends MongoRepository<Basket, String> {
+    Optional<Basket> findByUserId(String userId);
     Optional<Basket> findByUserIdAndStatus(String userId, BasketStatus status);
 }
