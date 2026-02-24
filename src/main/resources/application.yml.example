@@ -7,15 +7,18 @@ spring:
       host: localhost
       port: 27017
       database: basket-service
-    cache:
-      type: redis
-      redis:
-        host: localhost
-        port: 6379
-        password: sa
-        time-to-live: 60000
+
+    redis:
+      host: localhost
+      port: 6379
+      password: sa
+      time-to-live: 60000
+
+  cache:
+    type: redis
 
 basket:
   client:
     platzi: https://api.escuelajs.co/api/v1/
-
+  security:
+    secret: "lckansdlkcnasldknclaksndlcknasdlkncasd"

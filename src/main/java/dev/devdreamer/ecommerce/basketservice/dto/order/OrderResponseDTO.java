@@ -1,4 +1,4 @@
 package dev.devdreamer.ecommerce.basketservice.dto.order;
 
-public class OrderResponseDTO {
+public record OrderResponseDTO (){
 }
