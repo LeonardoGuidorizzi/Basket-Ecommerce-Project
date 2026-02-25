@@ -1,5 +1,6 @@
 package dev.devdreamer.ecommerce.basketservice.controller;
 
+import dev.devdreamer.ecommerce.basketservice.dto.basket.BasketResponseDTO;
 import dev.devdreamer.ecommerce.basketservice.security.util.SecurityUtils;
 import dev.devdreamer.ecommerce.basketservice.service.BasketService;
 import lombok.RequiredArgsConstructor;
@@ -37,4 +38,12 @@ public class BasketController {
         );
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping()
+    public ResponseEntity<BasketResponseDTO> getBasket(
+    ){
+        String userId = SecurityUtils.getAuthenticatedUserId();
+        return ResponseEntity.ok(basketService.getBasket(userId)) ;
+    }
+
 }

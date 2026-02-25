@@ -15,10 +15,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Builder
 @Document(collection = "basket")
 @Data
-@Builder
 public class Basket {
     @Id
     private String id;
