@@ -4,6 +4,7 @@ import dev.devdreamer.ecommerce.basketservice.dto.basket.BasketResponseDTO;
 import dev.devdreamer.ecommerce.basketservice.security.util.SecurityUtils;
 import dev.devdreamer.ecommerce.basketservice.service.BasketService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.mongodb.repository.Update;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,20 @@ public class BasketController {
     ){
         String userId = SecurityUtils.getAuthenticatedUserId();
         basketService.addItem(
+                userId,
+                productId,
+                quantity
+        );
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/items")
+    public ResponseEntity<Void> updateQuantity(
+            @RequestParam Long productId,
+            @RequestParam Integer quantity
+    ){
+        String userId = SecurityUtils.getAuthenticatedUserId();
+        basketService.updateQuantity(
                 userId,
                 productId,
                 quantity

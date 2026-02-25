@@ -37,6 +37,11 @@ public class BasketService {
         basketRepository.save(basket);
 
     }
+    public void updateQuantity(String userId, Long productId, Integer quantity){
+        Basket basket = basketRepository.findByUserId(userId).orElseThrow(()-> new RuntimeException("Basket not found"));
+        basket.updateQuantity(productId, quantity);
+        basketRepository.save(basket);
+    }
 
     public void removeItem(String userId,
                            Long productId){
@@ -45,6 +50,7 @@ public class BasketService {
         basketRepository.save(basket);
 
     }
+
 
     public BasketResponseDTO getBasket(String useId){
         Basket basket = basketRepository.findByUserId(useId).orElseThrow(()-> new RuntimeException("Basket not found"));

@@ -57,6 +57,22 @@ public class Basket {
         touch();
     }
 
+    public void updateQuantity(Long productId, Integer quantity){
+        if(quantity <= 0){
+            throw new IllegalArgumentException("Quantity must be greater than zero");
+        }
+        Optional<BasketItem> existing = items.stream()
+                .filter(i -> i.getProductId().equals(productId))
+                .findFirst();
+        if (existing.isPresent()){
+            existing.get().setQuantity(quantity);
+            recalculateTotal();
+        }else{
+            throw new IllegalArgumentException("There's no Basket Item");
+        }
+        touch();
+    }
+
     public void removeItem(Long productId){
         Optional<BasketItem> existing = items.stream()
                 .filter(i -> i.getProductId().equals(productId))
