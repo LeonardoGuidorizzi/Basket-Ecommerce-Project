@@ -1,4 +1,4 @@
 package dev.devdreamer.ecommerce.basketservice.service;
 
-public class OrderService {
+public class OrderService  {
 }
