@@ -10,6 +10,9 @@ import dev.devdreamer.ecommerce.basketservice.repository.BasketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.OptionalInt;
+
 @Service
 @RequiredArgsConstructor
 public class BasketService {
@@ -40,6 +43,9 @@ public class BasketService {
 
     public void removeItem(String userId,
                            Long productId){
+        Basket basket = basketRepository.findByUserId(userId).orElseThrow(()-> new RuntimeException("Basket not found"));
+        basket.removeItem(productId);
+        basketRepository.save(basket);
 
     }
 }

@@ -58,6 +58,16 @@ public class Basket {
         touch();
     }
 
+    public void removeItem(Long productId){
+        Optional<BasketItem> existing = items.stream()
+                .filter(i -> i.getProductId().equals(productId))
+                .findFirst();
+
+        existing.ifPresent(items::remove);
+        recalculateTotal();
+        this.updateAt = LocalDateTime.now();
+    }
+
     private void recalculateTotal() {
         this.totalAmount = items.stream()
                 .map(BasketItem::getSubtotal)
