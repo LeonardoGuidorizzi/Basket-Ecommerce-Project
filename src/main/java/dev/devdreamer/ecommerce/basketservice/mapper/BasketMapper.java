@@ -4,6 +4,8 @@ import dev.devdreamer.ecommerce.basketservice.domain.basket.Basket;
 import dev.devdreamer.ecommerce.basketservice.dto.basket.BasketResponseDTO;
 import lombok.experimental.UtilityClass;
 
+import java.util.List;
+
 @UtilityClass
 public class BasketMapper {
 
@@ -16,5 +18,11 @@ public class BasketMapper {
                 .createdAt(entity.getCreatedAt())
                 .updateAt(entity.getUpdateAt())
                 .build();
+    }
+
+    public static List<BasketResponseDTO> toDtoList(List<Basket> baskets) {
+        return baskets.stream()
+                .map(BasketMapper::toDto)
+                .toList();
     }
 }

@@ -1,5 +1,7 @@
 package dev.devdreamer.ecommerce.basketservice.security.filter;
 
+import dev.devdreamer.ecommerce.basketservice.domain.user.User;
+import dev.devdreamer.ecommerce.basketservice.repository.UserRepository;
 import dev.devdreamer.ecommerce.basketservice.security.jwt.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -20,6 +22,7 @@ import java.util.List;
 public class SecurityFilter extends OncePerRequestFilter {
 
     private final TokenService tokenService;
+    private final UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -31,10 +34,13 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         if (token != null) {
 
-            Long userId = tokenService.validateToken(token);
+            String userId = tokenService.validateToken(token);
+
+            User user = userRepository.findById(userId)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
 
             UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(userId, null, List.of());
+                    new UsernamePasswordAuthenticationToken(user, null, List.of());
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }

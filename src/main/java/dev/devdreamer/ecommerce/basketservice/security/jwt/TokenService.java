@@ -29,7 +29,7 @@ public class TokenService {
                 .sign(algorithm);
     }
 
-    public Long validateToken(String token) {
+    public String validateToken(String token) {
 
         Algorithm algorithm = Algorithm.HMAC256(secret);
 
@@ -37,6 +37,6 @@ public class TokenService {
                 .build()
                 .verify(token);
 
-        return jwt.getClaim("userId").asLong();
+        return jwt.getClaim("userId").asString();
     }
 }
