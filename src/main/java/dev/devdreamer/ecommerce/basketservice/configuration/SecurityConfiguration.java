@@ -1,5 +1,7 @@
 package dev.devdreamer.ecommerce.basketservice.configuration;
 
+import dev.devdreamer.ecommerce.basketservice.exception.security.CustomAccessDeniedHandler;
+import dev.devdreamer.ecommerce.basketservice.exception.security.CustomAuthenticationEntryPoint;
 import dev.devdreamer.ecommerce.basketservice.security.filter.SecurityFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +24,8 @@ import static org.springframework.security.authorization.SingleResultAuthorizati
 public class SecurityConfiguration {
 
     private final SecurityFilter securityFilter;
+    private final CustomAuthenticationEntryPoint authenticationEntryPoint;
+    private final CustomAccessDeniedHandler accessDeniedHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -30,13 +34,17 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .exceptionHandling(ex-> ex
+                        .authenticationEntryPoint(authenticationEntryPoint)
+                        .accessDeniedHandler(accessDeniedHandler))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/v1/basketservice/auth/register",
                                 "/api/v1/basketservice/auth/login"
                         )
                         .permitAll()
-                        .anyRequest().authenticated())
+                        .anyRequest()
+                        .authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
