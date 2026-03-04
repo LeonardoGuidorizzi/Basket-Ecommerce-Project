@@ -4,6 +4,7 @@ import dev.devdreamer.ecommerce.basketservice.domain.user.User;
 import dev.devdreamer.ecommerce.basketservice.dto.auth.LoginRequestDTO;
 import dev.devdreamer.ecommerce.basketservice.dto.auth.LoginResponseDTO;
 import dev.devdreamer.ecommerce.basketservice.dto.auth.RegisterRequestDTO;
+import dev.devdreamer.ecommerce.basketservice.exception.custom.EmailAlreadyExistsException;
 import dev.devdreamer.ecommerce.basketservice.repository.UserRepository;
 import dev.devdreamer.ecommerce.basketservice.security.jwt.TokenService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ public class UserService {
     public String register(RegisterRequestDTO request) {
 
         if (userRepository.findByEmail(request.email()).isPresent()) {
-            throw new RuntimeException("Email already in use");
+            throw new EmailAlreadyExistsException("Email already in use");
         }
 
         String encodedPassword = passwordEncoder.encode(request.password());
