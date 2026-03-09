@@ -36,6 +36,7 @@ public class Basket {
                 .userId(userId)
                 .items(new ArrayList<>())
                 .totalAmount(BigDecimal.ZERO)
+                .status(BasketStatus.ACTIVE)
                 .createdAt(now)
                 .updateAt(now)
                 .build();
@@ -91,6 +92,7 @@ public class Basket {
 
     public void clear(){
         this.items.clear();
+        recalculateTotal();
         touch();
     }
 
@@ -100,7 +102,7 @@ public class Basket {
 
     public void updateBasketStatus(BasketStatus newStatus){
         this.status = newStatus;
-        this.updateAt = LocalDateTime.now();
+        touch();
     }
 
 }
