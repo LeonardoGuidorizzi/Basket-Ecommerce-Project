@@ -1,8 +1,6 @@
 package dev.devdreamer.ecommerce.basketservice.controller;
 
-import dev.devdreamer.ecommerce.basketservice.domain.user.User;
 import dev.devdreamer.ecommerce.basketservice.dto.basket.BasketResponseDTO;
-import dev.devdreamer.ecommerce.basketservice.security.util.SecurityUtils;
 import dev.devdreamer.ecommerce.basketservice.service.BasketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +31,6 @@ public class BasketController {
             @RequestParam Long productId,
             @RequestParam Integer quantity
     ){
-        User user = SecurityUtils.getAuthenticatedUserId();
         basketService.updateQuantity(
                 productId,
                 quantity
