@@ -5,6 +5,7 @@ import dev.devdreamer.ecommerce.basketservice.Enum.OrderStatus;
 import dev.devdreamer.ecommerce.basketservice.domain.basket.Basket;
 import dev.devdreamer.ecommerce.basketservice.domain.basket.BasketItem;
 import lombok.Builder;
+import lombok.Data;
 import org.springframework.cglib.core.Local;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -14,8 +15,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Document(collection = "orders")
+@Document(collection = "order")
 @Builder
+@Data
 public class Order {
     @Id
     private String id;
@@ -36,17 +38,8 @@ public class Order {
         }
         LocalDateTime now = LocalDateTime.now();
 
-        List<OrderItem> orderItems = basket
-                .getItems()
-                .stream()
-                .map(item -> OrderItem.builder()
-                        .productId(item.getProductId())
-                        .productNameAtOrder(item.getProductName())
-                        .unitPriceAtOrder(item.getUnitPrice())
-                        .quantity(item.getQuantity())
-                        .subtotalAtOrder(item.getSubtotal())
-                        .build()
-                )
+        List<OrderItem> orderItems = basket.getItems().stream()
+                .map(OrderItem::fromBasketItem)
                 .toList();
 
         return Order.builder()
@@ -54,6 +47,7 @@ public class Order {
                 .basketId(basket.getId())
                 .items(orderItems)
                 .totalAmount(basket.getTotalAmount())
+                .status(OrderStatus.PENDING)
                 .updateAt(now)
                 .createdAt(now)
                 .build();
