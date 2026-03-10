@@ -1,4 +1,4 @@
-package dev.devdreamer.ecommerce.basketservice;
+package dev.devdreamer.ecommerce.basketservice.user;
 
 import dev.devdreamer.ecommerce.basketservice.controller.UserController;
 import dev.devdreamer.ecommerce.basketservice.dto.auth.LoginRequestDTO;
