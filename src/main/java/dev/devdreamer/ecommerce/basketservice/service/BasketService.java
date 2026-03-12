@@ -6,6 +6,7 @@ import dev.devdreamer.ecommerce.basketservice.domain.basket.Basket;
 import dev.devdreamer.ecommerce.basketservice.domain.product.Product;
 import dev.devdreamer.ecommerce.basketservice.domain.user.User;
 import dev.devdreamer.ecommerce.basketservice.dto.basket.BasketResponseDTO;
+import dev.devdreamer.ecommerce.basketservice.exception.custom.BusinessException;
 import dev.devdreamer.ecommerce.basketservice.mapper.BasketMapper;
 import dev.devdreamer.ecommerce.basketservice.repository.BasketRepository;
 import dev.devdreamer.ecommerce.basketservice.security.util.SecurityUtils;
@@ -43,7 +44,7 @@ public class BasketService {
     }
     public void updateQuantity(Long productId, Integer quantity){
         User user = SecurityUtils.getAuthenticatedUserId();
-        Basket basket = basketRepository.findByUserId(user.getId()).orElseThrow(()-> new RuntimeException("Basket not found"));
+        Basket basket = basketRepository.findByUserId(user.getId()).orElseThrow(()-> new BusinessException("Basket not found"));
         basket.updateQuantity(productId, quantity);
         basketRepository.save(basket);
     }
@@ -52,7 +53,7 @@ public class BasketService {
         User user = SecurityUtils.getAuthenticatedUserId();
         Basket basket = basketRepository
                 .findByUserId(user.getId())
-                .orElseThrow(()-> new RuntimeException("Basket not found"));
+                .orElseThrow(()-> new BusinessException("Basket not found"));
         basket.removeItem(productId);
         basketRepository.save(basket);
 
@@ -60,7 +61,7 @@ public class BasketService {
 
     public BasketResponseDTO getMyBasket(){
         User user = SecurityUtils.getAuthenticatedUserId();
-            Basket basket = basketRepository.findByUserId(user.getId()).orElseThrow(()-> new RuntimeException("Basket not found"));
+            Basket basket = basketRepository.findByUserId(user.getId()).orElseThrow(()-> new BusinessException("Basket not found"));
             return BasketMapper.toDto(basket);
 
     }
