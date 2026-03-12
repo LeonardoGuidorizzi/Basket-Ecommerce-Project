@@ -1,5 +1,6 @@
 package dev.devdreamer.ecommerce.basketservice.domain.product;
 
+import dev.devdreamer.ecommerce.basketservice.exception.custom.BusinessException;
 import lombok.*;
 
 import org.springframework.data.annotation.Id;
@@ -20,7 +21,7 @@ public class Product {
             BigDecimal price
     ) {
         if (price.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Price cannot be negative");
+            throw new BusinessException("Price cannot be negative");
         }
 
         return Product.builder()
