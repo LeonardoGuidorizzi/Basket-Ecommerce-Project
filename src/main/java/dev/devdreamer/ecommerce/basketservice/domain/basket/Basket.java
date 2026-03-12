@@ -3,6 +3,7 @@ package dev.devdreamer.ecommerce.basketservice.domain.basket;
 
 import dev.devdreamer.ecommerce.basketservice.Enum.BasketStatus;
 import dev.devdreamer.ecommerce.basketservice.domain.product.Product;
+import dev.devdreamer.ecommerce.basketservice.exception.custom.BusinessException;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.cglib.core.Local;
@@ -44,7 +45,7 @@ public class Basket {
 
     public void addItem( Product product, Integer quantity){
         if(quantity <= 0){
-            throw new IllegalArgumentException("Quantity must be greater than zero");
+            throw new BusinessException("Quantity must be greater than zero");
         }
         Optional<BasketItem> existing = items.stream()
                 .filter(i -> i.getProductId().equals(product.getId()))
@@ -60,7 +61,7 @@ public class Basket {
 
     public void updateQuantity(Long productId, Integer quantity){
         if(quantity <= 0){
-            throw new IllegalArgumentException("Quantity must be greater than zero");
+            throw new BusinessException("Quantity must be greater than zero");
         }
         Optional<BasketItem> existing = items.stream()
                 .filter(i -> i.getProductId().equals(productId))
@@ -69,7 +70,7 @@ public class Basket {
             existing.get().setQuantity(quantity);
             recalculateTotal();
         }else{
-            throw new IllegalArgumentException("There's no Basket Item");
+            throw new BusinessException("There's no Basket Item");
         }
         touch();
     }
