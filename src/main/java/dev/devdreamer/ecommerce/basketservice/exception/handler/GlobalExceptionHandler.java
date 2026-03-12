@@ -18,7 +18,7 @@ public class GlobalExceptionHandler  {
             HttpServletRequest request
     ){
      ErrorResponse error = ErrorResponse.of(
-             HttpStatus.NOT_IMPLEMENTED.value(),
+             HttpStatus.NOT_FOUND.value(),
              HttpStatus.NOT_FOUND.name(),
              ex.getMessage(),
              request.getRequestURI()
