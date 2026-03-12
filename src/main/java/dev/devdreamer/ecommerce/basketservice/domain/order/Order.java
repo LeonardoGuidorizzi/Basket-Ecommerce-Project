@@ -4,6 +4,7 @@ import dev.devdreamer.ecommerce.basketservice.Enum.BasketStatus;
 import dev.devdreamer.ecommerce.basketservice.Enum.OrderStatus;
 import dev.devdreamer.ecommerce.basketservice.domain.basket.Basket;
 import dev.devdreamer.ecommerce.basketservice.domain.basket.BasketItem;
+import dev.devdreamer.ecommerce.basketservice.exception.custom.BusinessException;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.cglib.core.Local;
@@ -34,7 +35,7 @@ public class Order {
 
     public static Order from (Basket basket){
         if(basket.getItems().isEmpty()){
-            throw new RuntimeException("Cannot create order from empty basket");
+            throw new BusinessException("Cannot create order from empty basket");
         }
         LocalDateTime now = LocalDateTime.now();
 
