@@ -40,7 +40,7 @@ public class SecurityFilter extends OncePerRequestFilter {
                     .orElseThrow(() -> new RuntimeException("User not found"));
 
             UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(user, null, List.of());
+                    new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
