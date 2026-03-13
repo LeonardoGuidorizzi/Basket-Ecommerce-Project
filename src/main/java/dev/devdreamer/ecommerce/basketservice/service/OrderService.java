@@ -40,4 +40,7 @@ public class OrderService  {
         User user = SecurityUtils.getAuthenticatedUserId();
         return OrderMapper.toDtoList(orderRepository.findByUserId(user.getId()));
     }
+    public List<OrderResponseDTO> getAllOrders (){
+        return OrderMapper.toDtoList(orderRepository.findAll());
+    }
 }

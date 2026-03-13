@@ -49,7 +49,7 @@ public class BasketController {
         return ResponseEntity.noContent().build();
     }
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/items")
+    @GetMapping("/admin")
     public ResponseEntity<List<BasketResponseDTO>> getAllBaskets(
     ){
         return ResponseEntity.ok(basketService.getAllBaskets());
