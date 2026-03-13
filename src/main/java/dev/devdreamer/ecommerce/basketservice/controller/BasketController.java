@@ -4,6 +4,7 @@ import dev.devdreamer.ecommerce.basketservice.dto.basket.BasketResponseDTO;
 import dev.devdreamer.ecommerce.basketservice.service.BasketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BasketController {
     private final BasketService basketService;
-
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/items")
     public ResponseEntity<Void> addItem(
             @RequestParam Long productId,
@@ -23,9 +24,9 @@ public class BasketController {
                 productId,
                 quantity
         );
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
-
+    @PreAuthorize("hasRole('USER')")
     @PutMapping("/items")
     public ResponseEntity<Void> updateQuantity(
             @RequestParam Long productId,
@@ -35,9 +36,9 @@ public class BasketController {
                 productId,
                 quantity
         );
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
-
+    @PreAuthorize("hasRole('USER')")
     @DeleteMapping("/items")
     public ResponseEntity<Void> deleteItem(
             @RequestParam Long productId
@@ -47,18 +48,20 @@ public class BasketController {
         );
         return ResponseEntity.noContent().build();
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/items")
     public ResponseEntity<List<BasketResponseDTO>> getAllBaskets(
     ){
         return ResponseEntity.ok(basketService.getAllBaskets());
     }
 
-
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/me")
     public ResponseEntity<BasketResponseDTO> getBasket(
     ){
         return ResponseEntity.ok(basketService.getMyBasket());
     }
+
+
 
 }
