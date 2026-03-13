@@ -171,7 +171,7 @@ class BasketControllerTest {
     void getAllBaskets_shouldReturn200_whenAdmin() throws Exception {
         when(basketService.getAllBaskets()).thenReturn(List.of(buildBasketResponse()));
 
-        mockMvc.perform(get("/api/v1/basketservice/basket/items"))
+        mockMvc.perform(get("/api/v1/basketservice/basket/admin"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(1))
                 .andExpect(jsonPath("$[0].totalAmount").value(0));
@@ -183,7 +183,7 @@ class BasketControllerTest {
     @WithMockUser(roles = "USER")
     @DisplayName("GET /items → 403 Forbidden when user is not ADMIN")
     void getAllBaskets_shouldReturn403_whenNotAdmin() throws Exception {
-        mockMvc.perform(get("/api/v1/basketservice/basket/items"))
+        mockMvc.perform(get("/api/v1/basketservice/basket/admin"))
                 .andExpect(status().isForbidden());
 
         verifyNoInteractions(basketService);
