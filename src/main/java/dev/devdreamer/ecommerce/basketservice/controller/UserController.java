@@ -4,6 +4,7 @@ import dev.devdreamer.ecommerce.basketservice.dto.auth.LoginRequestDTO;
 import dev.devdreamer.ecommerce.basketservice.dto.auth.LoginResponseDTO;
 import dev.devdreamer.ecommerce.basketservice.dto.auth.RegisterRequestDTO;
 import dev.devdreamer.ecommerce.basketservice.service.UserService;
+import dev.devdreamer.ecommerce.basketservice.swagger.doc.UserControllerDoc;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/v1/basketservice/auth")
 @RequiredArgsConstructor
-public class UserController {
+public class UserController implements UserControllerDoc {
     private final UserService userService;
     @PostMapping("/register")
     public ResponseEntity<Void> register(@Valid @RequestBody RegisterRequestDTO request){

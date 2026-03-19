@@ -2,6 +2,7 @@ package dev.devdreamer.ecommerce.basketservice.controller;
 
 import dev.devdreamer.ecommerce.basketservice.dto.order.OrderResponseDTO;
 import dev.devdreamer.ecommerce.basketservice.service.OrderService;
+import dev.devdreamer.ecommerce.basketservice.swagger.doc.OrderControllerDoc;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/basketservice/order")
 @RequiredArgsConstructor
-public class OrderController {
+public class OrderController implements OrderControllerDoc {
 
     private final OrderService orderService;
 

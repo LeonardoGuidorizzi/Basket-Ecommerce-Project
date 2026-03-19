@@ -2,6 +2,7 @@ package dev.devdreamer.ecommerce.basketservice.controller;
 
 import dev.devdreamer.ecommerce.basketservice.dto.basket.BasketResponseDTO;
 import dev.devdreamer.ecommerce.basketservice.service.BasketService;
+import dev.devdreamer.ecommerce.basketservice.swagger.doc.BasketControllerDoc;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/basketservice/basket")
 @RequiredArgsConstructor
-public class BasketController {
+public class BasketController implements BasketControllerDoc {
     private final BasketService basketService;
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/items")
