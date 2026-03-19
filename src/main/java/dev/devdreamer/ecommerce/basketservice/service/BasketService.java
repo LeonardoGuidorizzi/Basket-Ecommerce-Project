@@ -11,9 +11,12 @@ import dev.devdreamer.ecommerce.basketservice.mapper.BasketMapper;
 import dev.devdreamer.ecommerce.basketservice.repository.BasketRepository;
 import dev.devdreamer.ecommerce.basketservice.security.util.SecurityUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static reactor.netty.http.HttpConnectionLiveness.log;
 
 @Service
 @RequiredArgsConstructor
@@ -58,15 +61,17 @@ public class BasketService {
         basketRepository.save(basket);
 
     }
-
+    @Cacheable(cacheNames = "userBasket")
     public BasketResponseDTO getMyBasket(){
+        log.info("get user basket");
         User user = SecurityUtils.getAuthenticatedUserId();
             Basket basket = basketRepository.findByUserId(user.getId()).orElseThrow(()-> new BusinessException("Basket not found"));
             return BasketMapper.toDto(basket);
 
     }
-
+    @Cacheable(cacheNames = "adminBaskets")
     public List<BasketResponseDTO> getAllBaskets (){
+        log.info("get all baskets");
         List<Basket> baskets = basketRepository.findAll();
         return BasketMapper.toDtoList(baskets);
     }

@@ -10,9 +10,12 @@ import dev.devdreamer.ecommerce.basketservice.repository.BasketRepository;
 import dev.devdreamer.ecommerce.basketservice.repository.OrderRepository;
 import dev.devdreamer.ecommerce.basketservice.security.util.SecurityUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static reactor.netty.http.HttpConnectionLiveness.log;
 
 @Service
 @RequiredArgsConstructor
@@ -36,11 +39,15 @@ public class OrderService  {
         basketRepository.save(basket);
         return OrderMapper.toDto(order);
     }
+    @Cacheable(cacheNames = "userOrder")
     public List<OrderResponseDTO> getMyOrders (){
+        log.info("get user order");
         User user = SecurityUtils.getAuthenticatedUserId();
         return OrderMapper.toDtoList(orderRepository.findByUserId(user.getId()));
     }
+    @Cacheable(cacheNames = "adminOrder")
     public List<OrderResponseDTO> getAllOrders (){
+        log.info("get all orders");
         return OrderMapper.toDtoList(orderRepository.findAll());
     }
 }
