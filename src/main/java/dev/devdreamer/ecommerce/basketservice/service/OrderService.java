@@ -5,6 +5,7 @@ import dev.devdreamer.ecommerce.basketservice.domain.basket.Basket;
 import dev.devdreamer.ecommerce.basketservice.domain.order.Order;
 import dev.devdreamer.ecommerce.basketservice.domain.user.User;
 import dev.devdreamer.ecommerce.basketservice.dto.order.OrderResponseDTO;
+import dev.devdreamer.ecommerce.basketservice.exception.custom.BusinessException;
 import dev.devdreamer.ecommerce.basketservice.mapper.OrderMapper;
 import dev.devdreamer.ecommerce.basketservice.repository.BasketRepository;
 import dev.devdreamer.ecommerce.basketservice.repository.OrderRepository;
@@ -26,10 +27,10 @@ public class OrderService  {
     public OrderResponseDTO checkout (){
         User user = SecurityUtils.getAuthenticatedUserId();
         Basket basket = basketRepository.findByUserId(user.getId())
-                .orElseThrow(()-> new RuntimeException("Basket not found"));
+                .orElseThrow(()-> new BusinessException("Basket not found"));
 
         if (basket.getItems() == null || basket.getItems().isEmpty()){
-            throw new IllegalStateException("Cannot checkout an empty basket");
+            throw new BusinessException("Cannot checkout an empty basket");
         }
 
         Order order = Order.from(basket);
