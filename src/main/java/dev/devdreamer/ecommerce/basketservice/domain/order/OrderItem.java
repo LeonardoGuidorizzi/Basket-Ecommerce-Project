@@ -4,10 +4,11 @@ import dev.devdreamer.ecommerce.basketservice.domain.basket.BasketItem;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 @Data
 @Builder
-public class OrderItem {
+public class OrderItem implements Serializable  {
     private Long productId;
     private String productNameAtOrder; // Nome do produto no momento do pedido
     private BigDecimal unitPriceAtOrder;// Preço do produto no momento do pedido
