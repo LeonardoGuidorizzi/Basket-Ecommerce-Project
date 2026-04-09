@@ -5,6 +5,7 @@ import dev.devdreamer.ecommerce.basketservice.Enum.OrderStatus;
 import dev.devdreamer.ecommerce.basketservice.domain.order.OrderItem;
 import lombok.Builder;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,6 +16,6 @@ public record OrderResponseDTO (
         OrderStatus status,
         LocalDateTime createdAt,
         LocalDateTime updateAt
-){
+)implements Serializable {
 
 }
